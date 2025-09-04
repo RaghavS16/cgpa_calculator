@@ -71,8 +71,11 @@ export default function App() {
   const [grades, setGrades] = useState({});
   const [results, setResults] = useState(null);
 
-  const handleGradeChange = (subject, grade) => {
-    setGrades((prev) => ({ ...prev, [subject]: grade }));
+  const handleGradeChange = (sem, subject, grade) => {
+    setGrades((prev) => ({
+      ...prev,
+      [sem]: { ...prev[sem], [subject]: grade },
+    }));
   };
 
   const calculateGPA = (semesterSubjects, semesterGrades) => {
@@ -80,7 +83,7 @@ export default function App() {
     let totalCredits = 0;
 
     Object.entries(semesterSubjects).forEach(([subject, credit]) => {
-      const grade = semesterGrades[subject];
+      const grade = semesterGrades?.[subject];
       if (grade && gradePoints[grade] !== undefined) {
         totalPoints += gradePoints[grade] * credit;
         if (grade !== "RA" && grade !== "U") {
@@ -93,31 +96,36 @@ export default function App() {
   };
 
   const handleCalculate = () => {
-    const semesterSubjects = courseData[branch][semester];
-    const gpa = calculateGPA(semesterSubjects, grades);
+    let cgpaPoints = 0;
+    let cgpaCredits = 0;
+    let lastGpa = 0;
 
-    // Calculate CGPA up to this semester
-    let totalPoints = 0;
-    let totalCredits = 0;
     for (let i = 1; i <= semester; i++) {
       const semSubjects = courseData[branch][i];
-      const semGrades =
-        i === semester ? grades : {}; // for demo, only input latest sem
+      const semGrades = grades[i];
+      const gpa = calculateGPA(semSubjects, semGrades);
+
+      // Save last semester GPA
+      if (i === semester) {
+        lastGpa = gpa;
+      }
+
+      // Add to CGPA calculation
       Object.entries(semSubjects).forEach(([subject, credit]) => {
-        const grade = semGrades[subject];
+        const grade = semGrades?.[subject];
         if (grade && gradePoints[grade] !== undefined) {
-          totalPoints += gradePoints[grade] * credit;
+          cgpaPoints += gradePoints[grade] * credit;
           if (grade !== "RA" && grade !== "U") {
-            totalCredits += credit;
+            cgpaCredits += credit;
           }
         }
       });
     }
 
-    const cgpa = totalCredits > 0 ? totalPoints / totalCredits : 0;
+    const cgpa = cgpaCredits > 0 ? cgpaPoints / cgpaCredits : 0;
 
     setResults({
-      gpa: gpa.toFixed(2),
+      gpa: lastGpa.toFixed(2),
       cgpa: cgpa.toFixed(2),
       grades,
     });
@@ -152,20 +160,28 @@ export default function App() {
           </select>
         </label>
 
-        {Object.entries(courseData[branch][semester]).map(([subject]) => (
-          <div key={subject}>
-            <label>{subject}</label>
-            <select
-              value={grades[subject] || ""}
-              onChange={(e) => handleGradeChange(subject, e.target.value)}
-            >
-              <option value="">Select Grade</option>
-              {Object.keys(gradePoints).map((grade) => (
-                <option key={grade} value={grade}>
-                  {grade}
-                </option>
-              ))}
-            </select>
+        {/* Show grade inputs for all semesters up to selected */}
+        {Array.from({ length: semester }, (_, i) => i + 1).map((sem) => (
+          <div key={sem} style={{ marginBottom: "20px" }}>
+            <h3>Semester {sem}</h3>
+            {Object.entries(courseData[branch][sem]).map(([subject]) => (
+              <div key={subject}>
+                <label>{subject}</label>
+                <select
+                  value={grades[sem]?.[subject] || ""}
+                  onChange={(e) =>
+                    handleGradeChange(sem, subject, e.target.value)
+                  }
+                >
+                  <option value="">Select Grade</option>
+                  {Object.keys(gradePoints).map((grade) => (
+                    <option key={grade} value={grade}>
+                      {grade}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
           </div>
         ))}
 
@@ -174,15 +190,20 @@ export default function App() {
         {results && (
           <div className="result-box">
             <h3>Entered Grades</h3>
-            <ul>
-              {Object.entries(results.grades).map(([subject, grade]) => (
-                <li key={subject}>
-                  {subject}: <strong>{grade}</strong>
-                </li>
-              ))}
-            </ul>
-            <div className="total">GPA: {results.gpa}</div>
-            <div className="total">CGPA: {results.cgpa}</div>
+            {Object.entries(results.grades).map(([sem, semGrades]) => (
+              <div key={sem}>
+                <h4>Semester {sem}</h4>
+                <ul>
+                  {Object.entries(semGrades).map(([subject, grade]) => (
+                    <li key={subject}>
+                      {subject}: <strong>{grade}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div className="total">GPA (Sem {semester}): {results.gpa}</div>
+            <div className="total">CGPA (Up to Sem {semester}): {results.cgpa}</div>
           </div>
         )}
       </div>
