@@ -96,6 +96,16 @@ export default function App() {
   };
 
   const handleCalculate = () => {
+    // ✅ Validation check
+    for (let i = 1; i <= semester; i++) {
+      const semSubjects = courseData[branch][i];
+      const semGrades = grades[i];
+      if (!semGrades || Object.keys(semGrades).length < Object.keys(semSubjects).length) {
+        alert(`Please select all grades for Semester ${i}`);
+        return;
+      }
+    }
+
     let cgpaPoints = 0;
     let cgpaCredits = 0;
     let lastGpa = 0;
@@ -105,12 +115,10 @@ export default function App() {
       const semGrades = grades[i];
       const gpa = calculateGPA(semSubjects, semGrades);
 
-      // Save last semester GPA
       if (i === semester) {
         lastGpa = gpa;
       }
 
-      // Add to CGPA calculation
       Object.entries(semSubjects).forEach(([subject, credit]) => {
         const grade = semGrades?.[subject];
         if (grade && gradePoints[grade] !== undefined) {
@@ -129,6 +137,13 @@ export default function App() {
       cgpa: cgpa.toFixed(2),
       grades,
     });
+  };
+
+  const handleReset = () => {
+    setGrades({});
+    setResults(null);
+    setSemester(1);
+    setBranch("it");
   };
 
   return (
@@ -160,7 +175,6 @@ export default function App() {
           </select>
         </label>
 
-        {/* Show grade inputs for all semesters up to selected */}
         {Array.from({ length: semester }, (_, i) => i + 1).map((sem) => (
           <div key={sem} style={{ marginBottom: "20px" }}>
             <h3>Semester {sem}</h3>
@@ -186,6 +200,7 @@ export default function App() {
         ))}
 
         <button onClick={handleCalculate}>Calculate</button>
+        <button onClick={handleReset}>Reset</button>
 
         {results && (
           <div className="result-box">
@@ -202,8 +217,12 @@ export default function App() {
                 </ul>
               </div>
             ))}
-            <div className="total">GPA (Sem {semester}): {results.gpa}</div>
-            <div className="total">CGPA (Up to Sem {semester}): {results.cgpa}</div>
+            <div className="total">
+              GPA (Sem {semester}): {results.gpa}
+            </div>
+            <div className="total">
+              CGPA (Up to Sem {semester}): {results.cgpa}
+            </div>
           </div>
         )}
       </div>
