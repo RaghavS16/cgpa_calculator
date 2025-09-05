@@ -1,7 +1,3 @@
-Understood. Here’s the revised **README.md** without emojis and with a **clear grade points table** for Anna University M.Sc Integrated CS/IT Regulation 2023.
-
----
-
 # GPA & CGPA Calculator – Anna University (M.Sc Integrated CS/IT, Regulation 2023)
 
 This is a **React-based GPA & CGPA Calculator** designed exclusively for **Anna University M.Sc Integrated CS/IT students (Regulation 2023)**.
@@ -116,7 +112,3 @@ Steps to deploy:
 ## Feedback
 
 If you find any errors in subjects, credits, or grade mapping, please raise an issue or contribute via pull requests.
-
----
-
-Do you also want me to add a **sample screenshot/demo section** (like "Example: Semester 1, CS branch, with grades entered") so students can quickly verify how it works?
