@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+Understood. Here’s the revised **README.md** without emojis and with a **clear grade points table** for Anna University M.Sc Integrated CS/IT Regulation 2023.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# GPA & CGPA Calculator – Anna University (M.Sc Integrated CS/IT, Regulation 2023)
 
-In the project directory, you can run:
+This is a **React-based GPA & CGPA Calculator** designed exclusively for **Anna University M.Sc Integrated CS/IT students (Regulation 2023)**.
 
-### `npm start`
+The calculator allows students to:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Select their **branch (CS/IT)**
+* Choose their **semester**
+* Enter **grades for each subject**
+* Instantly compute **GPA (for the semester)** and **CGPA (up to that semester)**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+It is deployed and hosted using **AWS Amplify**.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+* GPA Calculation – For the selected semester.
+* CGPA Calculation – Automatically includes all semesters up to the selected one.
+* Validation – Alerts if any subject grade is left blank.
+* Reset Button – Clear all inputs and start fresh.
+* Modern UI – Clean design with custom CSS for ease of use.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Grade Points (Anna University Regulation 2023)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Grade | Grade Point |
+| ----- | ----------- |
+| O     | 10          |
+| A+    | 9           |
+| A     | 8           |
+| B+    | 7           |
+| B     | 6           |
+| C     | 5           |
+| RA    | 0           |
+| U     | 0           |
 
-### `npm run eject`
+*Note: RA = Re-appear, U = Absent*
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Run Locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone this repository:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   git clone https://github.com/your-username/gpa-cgpa-calculator.git
+   cd gpa-cgpa-calculator
+   ```
 
-## Learn More
+2. Install dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Start the development server:
 
-### Code Splitting
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Deployment (AWS Amplify)
 
-### Making a Progressive Web App
+This project is deployed using **AWS Amplify**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Steps to deploy:
 
-### Advanced Configuration
+1. Push your project to GitHub.
+2. Login to [AWS Amplify Console](https://aws.amazon.com/amplify/).
+3. Connect your GitHub repository.
+4. Select the branch (for example, `main`).
+5. Amplify will automatically build and host your React app.
+6. After deployment, Amplify will provide a live URL to share.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Usage Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Select **Branch**: IT or CS.
+2. Select **Semester** (1–10).
+3. Enter **grades** for each subject using the dropdown.
+4. Click **Calculate**.
 
-### `npm run build` fails to minify
+   * GPA for that semester will be displayed.
+   * CGPA up to that semester will be displayed.
+5. Click **Reset** to clear inputs and start again.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Note
+
+* This calculator is only valid for **Anna University M.Sc Integrated CS/IT (Regulation 2023)**.
+* GPA/CGPA calculation is based strictly on **Anna University Grade Points & Credits**.
+* It may not apply to other courses, branches, or regulations.
+
+---
+
+## Tech Stack
+
+* React.js (Frontend)
+* AWS Amplify (Deployment & Hosting)
+* Custom CSS (Styling)
+
+---
+
+## Feedback
+
+If you find any errors in subjects, credits, or grade mapping, please raise an issue or contribute via pull requests.
+
+---
+
+Do you also want me to add a **sample screenshot/demo section** (like "Example: Semester 1, CS branch, with grades entered") so students can quickly verify how it works?
