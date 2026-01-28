@@ -135,6 +135,7 @@ export default function App() {
     setResults({
       gpa: lastGpa.toFixed(2),
       cgpa: cgpa.toFixed(2),
+      creditsEarned: cgpaCredits,
       grades,
     });
   };
@@ -222,6 +223,9 @@ export default function App() {
             </div>
             <div className="total">
               CGPA (Up to Sem {semester}): {results.cgpa}
+            </div>
+            <div className="total">
+              Total Credits Earned: {results.creditsEarned}
             </div>
           </div>
         )}
